@@ -1,4 +1,6 @@
-﻿using ApiCargav2.Models;
+﻿using ApiCargav2.Handlers;
+using ApiCargav2.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,20 @@ namespace ApiCargav2.Controllers
     [RoutePrefix("api/login")]
     public class LoginController : ApiController
     {
+        private readonly ILogger _logger;
+
+        public LoginController()
+        {
+            _logger = GlobalErrorLogger.logger;
+        }
+
         [HttpGet]
         [Route("echoping")]
         public IHttpActionResult EchoPing()
+        
         {
-            return Ok(true);
+            _logger.Information("Me voy a caer");
+            throw new Exception("Me caí");
         }
 
         [HttpGet]
